@@ -47,7 +47,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
-    'website.shop.ShopConfig',
+    'shop.apps.ShopConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
