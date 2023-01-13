@@ -21,15 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(BASE_DIR / '.env')
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
-ALLOWED_HOSTS = []
-if os.getenv('ALLOWED_HOSTS') is not None:
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
+DEBUG = 'RENDER' not in os.environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+ALLOWED_HOSTS = []
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')if RENDER_EXTERNAL_HOSTNAME:    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -43,12 +42,10 @@ SECRET_KEY = 'django-insecure-08nbfynohb)i+($-8ov*z0sw-i=5c0&&iz-+hmrjt^0caoww_h
 DEBUG = True
 
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
-    'website/shop',
+    'website.shop.ShopConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -92,7 +89,7 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
+    'default': dj_database_url.config(default='postgres://eccomerce_mh1a_user:YpBDwj3IMq1XkjwtwRBohIp0yP32wjuQ@dpg-ceva80h4reb4easpcqlg-a/eccomerce_mh1a'),
 }
 
 
